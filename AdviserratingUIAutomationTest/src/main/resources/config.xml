@@ -68,7 +68,7 @@
     <!--Log File Location Path-->
     <entry key="LogFolderParentPath">../AdviserratingUIAutomationTest/testResult/</entry>
     <!--log4j log path sufix-->
-    <entry key="TestResultLocationPath">../AdviserratingUIAutomationTest/testResult/</entry>
+     <entry key="TestResultLocationPath">../AdviserratingUIAutomationTest/testResult/</entry>
     <!--log4j Log path prefix-->
     <entry key="Log4jLogPathDestination">/log/seleniumFrameWork.log</entry>
     <!--Log Folder Names-->
