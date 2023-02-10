@@ -44,7 +44,7 @@ public class AdviserRatingPage extends BasePage {
 	public void searchAdviserName(String adviserName) throws WebDriverInstanceNullException, InvalidInputException,
 			ResourceCustomException, IOException, InterruptedException {
 		log.info("Entered reNameSurvey method of AdviserRatingPage");
-		findTextboxAndSetValueByXpath(adviserRatingPageproperty.getProperty("ADVISER_SEARCHBOX_XPATH.name"),
+		findTextboxAndSetValueByXpath(adviserRatingPageproperty.getProperty("ADVISER_SEARCHBOX_XPATH"),
 				adviserName, seleniumWebDriver);
 	}
 // Dropdown value should be displayed with entered advisorname
@@ -81,9 +81,9 @@ public class AdviserRatingPage extends BasePage {
 		String expectedLocation1 = location1;
 		String expectedLocation2 = location2;
 		WebElement location1displayed = seleniumWebDriver
-				.findElement(By.xpath(adviserRatingPageproperty.getProperty("LOCATION1_FROM_DROPDOWN_XPATH.name")));
+				.findElement(By.xpath(adviserRatingPageproperty.getProperty("LOCATION1_FROM_DROPDOWN_XPATH")));
 
-		WebElement location2displayed = seleniumWebDriver.findElement(By.xpath(("LOCATION2_FROM_DROPDOWN_XPATH.name")));
+		WebElement location2displayed = seleniumWebDriver.findElement(By.xpath(adviserRatingPageproperty.getProperty("LOCATION2_FROM_DROPDOWN_XPATH")));
 		String actualLocation1 = location1displayed.getText();
 		String actualLocation2 = location2displayed.getText();
 		Assert.assertEquals(expectedLocation1, actualLocation1);
@@ -104,7 +104,7 @@ public class AdviserRatingPage extends BasePage {
 
 //		String expectedName = adviserName;
 		WebElement dropdownNameHighlighted = seleniumWebDriver
-				.findElement(By.xpath(adviserRatingPageproperty.getProperty("ADVISERNAME_HIGHLIGHTED_XPATH.name")));
+				.findElement(By.xpath(adviserRatingPageproperty.getProperty("ADVISERNAME_HIGHLIGHTED_XPATH")));
 //		String actualName = adviserNamedisplayed.getText();
 
 		// getAttribute() to get src value
@@ -276,7 +276,7 @@ public class AdviserRatingPage extends BasePage {
 	public void inputCheckCall() throws ResourceCustomException, IOException {
 
 		WebElement name = seleniumWebDriver
-				.findElement(By.name(adviserRatingPageproperty.getProperty("ADVISOR_NAME_VERIFY_TAGNAME")));
+				.findElement(By.tagName(adviserRatingPageproperty.getProperty("ADVISOR_NAME_VERIFY_TAGNAME")));
 		String namevalue = name.getText();
 		Assert.assertEquals("Brett Dillon", namevalue);
 
@@ -311,18 +311,20 @@ public class AdviserRatingPage extends BasePage {
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_MAPLOCATE_CSSSELECTOR")));
 
 		Actions a = new Actions(seleniumWebDriver);
-		a.moveToElement(map).perform();
+		a.moveToElement(map).build().perform();
 
 		WebElement advisornamelocate = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_MAP_ADVISORNAME_CSSSELECTOR")));
 
 		String advisorname = advisornamelocate.getText();
+		System.out.println("advisorname: "+advisorname);
 		Assert.assertEquals("Saige Financial Planning Pty Ltd", advisorname);
 
 		WebElement srcurllocate = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_SRCURL_CSSSELECTOR")));
 
 		String srcurl = srcurllocate.getAttribute("src");
+		System.out.println("srcurl: "+srcurl);
 		Assert.assertEquals(
 				"https://resources.adviserratings.com.au/practices/saige-financial-planning-pty-ltd-18006980.png",
 				srcurl);
