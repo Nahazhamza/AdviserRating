@@ -119,21 +119,21 @@ public class BrowserInstanceFactory extends BasePage {
 			WebDriver seleniumWebdriver = null;
 			ResourceRead resourceRead = new ResourceRead();
 			// firefox capabilities
-			//final  DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+//			final  DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 			//firefox options
-			FirefoxOptions firefoxOptions = new FirefoxOptions();
-			firefoxOptions.addArguments("headless");
-			firefoxOptions.addArguments("window-size=1200x600");
-			firefoxOptions.addArguments("disable-application-cache");
-			firefoxOptions.addArguments("disk-cache-size=0");
-			firefoxOptions.addArguments("disable-popup-blocking");
-			firefoxOptions.addArguments("no-sandbox");
-
-
-			FirefoxProfile firefoxProfile = new FirefoxProfile();
-			firefoxProfile.setPreference("intl.accept_languages", "en");
-			firefoxProfile.setPreference("disable-popup-blocking", true);
-			firefoxOptions.setProfile(firefoxProfile);
+//			FirefoxOptions firefoxOptions = new FirefoxOptions();
+//			firefoxOptions.addArguments("headless");
+//			firefoxOptions.addArguments("window-size=1200x600");
+//			firefoxOptions.addArguments("disable-application-cache");
+//			firefoxOptions.addArguments("disk-cache-size=0");
+//			firefoxOptions.addArguments("disable-popup-blocking");
+//			firefoxOptions.addArguments("no-sandbox");
+//
+//
+//			FirefoxProfile firefoxProfile = new FirefoxProfile();
+//			firefoxProfile.setPreference("intl.accept_languages", "en");
+//			firefoxProfile.setPreference("disable-popup-blocking", true);
+//			firefoxOptions.setProfile(firefoxProfile);
 
 			//setting proxy
 			// Not needed for Eclipx
@@ -144,7 +144,8 @@ public class BrowserInstanceFactory extends BasePage {
 
 			//firefox driver path
 			System.setProperty(resourceRead.getResourceValueFromXML().getProperty(FIREFOX_DRIVERNAME_PROPERTY), resourceRead.getResourceValueFromXML().getProperty(FIREFOX_DRIVERPATH_PROPERTY));
-			seleniumWebdriver = new FirefoxDriver(firefoxOptions);
+			seleniumWebdriver = new FirefoxDriver();
+//			seleniumWebdriver = new FirefoxDriver(firefoxOptions);
 			seleniumWebdriver.manage().timeouts().pageLoadTimeout(Long.parseLong(resourceRead.getResourceValueFromXML().getProperty(TIME_OUT_PROPERTY)), TimeUnit.SECONDS);
 			log.info("Exited the firefoxWebDriver method in BrowserInstanceFactory");
 			return seleniumWebdriver;
@@ -156,10 +157,68 @@ public class BrowserInstanceFactory extends BasePage {
 			return null;
 		}
 	}
-}
+
 
 	
+public static WebDriver edgeWebDriver() {
+	try {
+		log.info("Entered the ChromeWebDriver method in BrowserInstanceFactory");
 
+		String EDGE_DRIVERNAME_PROPERTY = "EdgeDriverName";
+		// String EDGE_DRIVERPATH_PROPERTY = "ChromeDriverPath";
+		String EDGE_WINDOWS_DRIVERPATH_PROPERTY = "EdgeDriverWindowsPath";
+		String EDGE_LINUX_DRIVERPATH_PROPERTY = "EdgeDriverLinuxPath";
+		String TIME_OUT_PROPERTY = "WebDriverTimeOutInSeconds";
+		WebDriver seleniumWebdriver = null;
+		ResourceRead resourceRead = new ResourceRead();
+		final EdgeOptions edgeOptions = new EdgeOptions();
+		
+
+		edgeOptions.setHeadless(false);
+		edgeOptions.addArguments("no-sandbox");
+		edgeOptions.addArguments("window-size=1920,1080");
+		edgeOptions.addArguments("disable-gpu");
+		edgeOptions.addArguments("disable-application-cache");
+		edgeOptions.addArguments("disk-cache-size=0");
+		edgeOptions.addArguments("disable-dev-shm-usage");
+
+		//=================  Added media stream permission           
+
+		Map<String, Integer> userPrefences = new HashMap<>();
+		Map<String, Object> profile = new HashMap<>();
+		Map<String, Object> prefs = new HashMap<>();
+		userPrefences.put("media_stream", 1);
+		profile.put("managed_default_content_settings", userPrefences);
+		prefs.put("profile", profile);
+		//            userPrefences.put("intl.accept_languages", "en");
+		//            userPrefences.put("disable-popup-blocking", true);
+		//            //user preferences for download default directory.... need to ask
+		edgeOptions.setExperimentalOption("prefs", prefs);
+
+		
+		String osName = System.getProperty("os.name");
+		if(osName.toLowerCase().contains("windows")) { 
+			System.out.println("osName: " + osName); System.out.println("EdgeDriverName: " + resourceRead.getResourceValueFromXML().getProperty(EDGE_DRIVERNAME_PROPERTY)); System.out.println("EdgeDriverName: " + resourceRead.getResourceValueFromXML().getProperty(EDGE_WINDOWS_DRIVERPATH_PROPERTY));
+
+			System.setProperty(resourceRead.getResourceValueFromXML().getProperty(EDGE_DRIVERNAME_PROPERTY), resourceRead.getResourceValueFromXML().getProperty(EDGE_WINDOWS_DRIVERPATH_PROPERTY)); 
+		} else 
+		{
+			System.setProperty(resourceRead.getResourceValueFromXML().getProperty(EDGE_DRIVERNAME_PROPERTY), resourceRead.getResourceValueFromXML().getProperty(EDGE_LINUX_DRIVERPATH_PROPERTY)); 
+		}
+
+		seleniumWebdriver = new EdgeDriver(edgeOptions);
+		seleniumWebdriver.manage().timeouts().pageLoadTimeout(Long.parseLong(resourceRead.getResourceValueFromXML().getProperty(TIME_OUT_PROPERTY)), TimeUnit.SECONDS);
+		log.info("Exited the EdgeWebDriver method in BrowserInstanceFactory");
+		return seleniumWebdriver;
+	} catch (IOException e) {
+		new ExceptionHandeler().genricExceptionHandeler(e);
+		return null;
+	} catch (ResourceCustomException e) {
+		new ExceptionHandeler().resourceExceptionHandeler(e);
+		return null;
+	}
+}
+}
 
 //public class BrowserInstanceFactory extends BasePage {
 //
