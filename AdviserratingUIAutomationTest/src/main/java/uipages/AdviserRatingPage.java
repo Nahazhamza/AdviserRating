@@ -73,7 +73,7 @@ public class AdviserRatingPage extends BasePage {
 		Assert.assertEquals(expectedPractise, actualPractiseName);
 
 	}
-//Verify the locations expected with the actual ones
+//Verify the locations expected with the actual value
 	
 	public void verifyLocations(String location1, String location2) throws WebDriverInstanceNullException,
 			InvalidInputException, ResourceCustomException, IOException, InterruptedException {
