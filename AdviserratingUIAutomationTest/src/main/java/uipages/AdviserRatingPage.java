@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Assertions;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -139,24 +140,26 @@ public class AdviserRatingPage extends BasePage {
 	
 //check inputed value get selected and highlighted
 	
-	public void selectLocationfeildcall() throws InterruptedException, ResourceCustomException, IOException {
+	public void selectLocationfeildcall(String Expectedlocation, String containsvalue) throws InterruptedException, ResourceCustomException, IOException {
 		log.info("Entered locationvalue method of AdviserRatingPage");
 
-		String value = "Sydney, NSW 2000";
+		//String value = "Sydney, NSW 2000";
 
 		WebElement adviserNamedisplayed = seleniumWebDriver
 				.findElement(By.xpath(adviserRatingPageproperty.getProperty("ADVISER_LOCATIONTAB_XPATH")));
-		adviserNamedisplayed.sendKeys("Sydney");
+		adviserNamedisplayed.sendKeys(Expectedlocation);
 		Thread.sleep(3000);
 
 		List<WebElement> ele = this.seleniumWebDriver.findElements(By.cssSelector(
 				"div[class='ar-input ar-input--location ar-input--no-label'] div[class='selectize-dropdown single'] div[class='selectize-dropdown-content'] div"));
 		System.out.println(ele.size());
 		for (int i = 0; i <= ele.size() - 1; i++) {
-			if (ele.get(i).getText().contains("NSW 2000")) {
+			if (ele.get(i).getText().contains(containsvalue)) {
 				ele.get(i).click();
 				String option = ele.get(i).getAttribute("class");
 				System.out.println("Highlighted:"+option);
+				String highlightvalue = "option selected active";
+				Assert.assertEquals(highlightvalue, option);
 
 				break;
 			}
@@ -171,31 +174,31 @@ public class AdviserRatingPage extends BasePage {
 
 	//verify url
 	
-	public void verifySydneycurrentUrl() {
+	public void verifySydneycurrentUrl(String Expectedurl) {
 		String url = this.seleniumWebDriver.getCurrentUrl();
 		System.out.println("currenturl" + url);
-		Assert.assertEquals("https://staging.adviserratings.com.au/find-an-adviser/Sydney-NSW-2000", url);
+		Assert.assertEquals(Expectedurl, url);
 	}
 
 	// verify dropdownbox, Listview and KM range closest
 	
-	public void verifyTheDropDownBox() throws ResourceCustomException, IOException {
+	public void verifyTheDropDownBox(String location,String km, String searchResult) throws ResourceCustomException, IOException {
 
 		WebElement verifylocationFeild = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_LOCATIONFEILD_CSSSELECTOR")));
 		String verifytext = verifylocationFeild.getText();
 
-		Assert.assertEquals("Sydney, NSW 2000", verifytext);
+		Assert.assertEquals(location, verifytext);
 
 		WebElement verifyKM = seleniumWebDriver
-				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_LOCATION_KM_CSSSELECTOR")));
+				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_DROPDOWN_DISTANCE_VERIFY")));
 		String kilometer = verifyKM.getText();
-
+		Assert.assertEquals(km, kilometer);
 		WebElement verifylocationKM = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_LOCATION_RESULT_TAGNAME")));
 		String searchresult = verifylocationKM.getText();
 
-		Assert.assertEquals("We've found 2444 advisers within 10km of Sydney, NSW 2000", searchresult);
+		Assert.assertEquals(searchResult, searchresult);
 
 		WebElement verifyListView = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_LISTVIEW_CSSSELECTOR")));
@@ -222,7 +225,7 @@ public class AdviserRatingPage extends BasePage {
 	
 	  // To Perform select option for requested input 
 	  
-	public void dropdownselectAdvisor() throws InterruptedException, ResourceCustomException, IOException {
+	public void dropdownselectAdvisor(String adviserName) throws InterruptedException, ResourceCustomException, IOException {
 
 		WebElement advisortab = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_TAB_CSSSELECTOR")));
@@ -230,14 +233,14 @@ public class AdviserRatingPage extends BasePage {
 
 		WebElement advisorname = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISORNAME_CSSSELECTOR")));
-		advisorname.sendKeys("Brett Dillon");
+		advisorname.sendKeys(adviserName);
 
 		Thread.sleep(2000);
 
 		List<WebElement> ele = this.seleniumWebDriver.findElements(By.cssSelector("span[class='font-weight-bold']"));
 		System.out.println(ele.size());
 		for (int i = 0; i <= ele.size() - 1; i++) {
-			if (ele.get(i).getText().contains("Brett Dillon")) {
+			if (ele.get(i).getText().contains(adviserName)) {
 				ele.get(i).click();
 				// location.sendKeys(Keys.ENTER);
 				break;
@@ -248,16 +251,16 @@ public class AdviserRatingPage extends BasePage {
 	
 	// To get current url and verify with expected url
 	 
-	public void advisornameCurrentUrl() {
+	public void advisornameCurrentUrl(String expectedUrl) {
 		String url = this.seleniumWebDriver.getCurrentUrl();
 		System.out.println("currenturl" + url);
-		Assert.assertEquals("https://staging.adviserratings.com.au/adviser/265081/Brett-Dillon", url);
+		Assert.assertEquals(expectedUrl, url);
 	}
 
 	
 	// verify image src of banner
 	 
-	public void bannerInfoCall() throws ResourceCustomException, IOException {
+	public void bannerInfoCall(String BannerImage) throws ResourceCustomException, IOException {
 
 		WebElement image = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISORURL_LOCATOR_CSSSELECTOR")));
@@ -265,69 +268,68 @@ public class AdviserRatingPage extends BasePage {
 
 		System.out.println("ImageSrc attribute is: " + Imagesrc);
 
-		Assert.assertEquals("https://resources.adviserratings.com.au/adviser-profile/brett-andrew-dillon-265081.png",
-				Imagesrc);
+		Assert.assertEquals(BannerImage,Imagesrc);
 
 	}
 
 	
 	// verify Check for name, advisername and location
 	
-	public void inputCheckCall() throws ResourceCustomException, IOException {
+	public void inputCheckCall(String name, String AdvisorName, String Location) throws ResourceCustomException, IOException {
 
-		WebElement name = seleniumWebDriver
+		WebElement Actualname = seleniumWebDriver
 				.findElement(By.tagName(adviserRatingPageproperty.getProperty("ADVISOR_NAME_VERIFY_TAGNAME")));
-		String namevalue = name.getText();
-		Assert.assertEquals("Brett Dillon", namevalue);
+		String namevalue = Actualname.getText();
+		Assert.assertEquals(name, namevalue);
 
-		WebElement adviserName = seleniumWebDriver
+		WebElement ActualadviserName = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_ADVISORNAME_CSSSELECTOR")));
-		String Advisernamevalue = adviserName.getText();
-		Assert.assertEquals("Saige Financial Planning Pty Ltd", Advisernamevalue);
+		String Advisernamevalue = ActualadviserName.getText();
+		Assert.assertEquals(AdvisorName, Advisernamevalue);
 
-		WebElement location = seleniumWebDriver
+		WebElement Actuallocation = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_LOCATIONTEXT_VERIFY_CSSSELECTOR")));
-		String locationvalue = location.getText();
-		Assert.assertEquals("Erina, NSW 2250", locationvalue);
+		String locationvalue = Actuallocation.getText();
+		Assert.assertEquals(Location, locationvalue);
 	}
 
 	
 	// verify Tab Name 
 
-	public void aboutTabCheckCall() throws ResourceCustomException, IOException {
+	public void aboutTabCheckCall(String AboutName) throws ResourceCustomException, IOException {
 
 		WebElement tab = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_TABNAMECHECK_CSSSELECTOR")));
 		boolean returntype = tab.isSelected();
 		String texttab = tab.getText();
-		Assert.assertEquals("About Brett", texttab);
+		Assert.assertEquals(AboutName, texttab);
 	}
 	
 	// verify Map and src of Image
 
-	public void locationPanelCall() throws ResourceCustomException, IOException {
+	public void locationPanelCall(String adviserNameExpected, String srcUrlExpected) throws ResourceCustomException, IOException {
 
 		WebElement map = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_MAPLOCATE_CSSSELECTOR")));
 
-		Actions a = new Actions(seleniumWebDriver);
-		a.moveToElement(map).build().perform();
+		/*Actions a = new Actions(seleniumWebDriver);
+		a.moveToElement(map).build().perform();*/
+		
+		((JavascriptExecutor)seleniumWebDriver).executeScript("arguments[0].scrollIntoView(true);", map);
 
 		WebElement advisornamelocate = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_MAP_ADVISORNAME_CSSSELECTOR")));
 
 		String advisorname = advisornamelocate.getText();
 		System.out.println("advisorname: "+advisorname);
-		Assert.assertEquals("Saige Financial Planning Pty Ltd", advisorname);
+		Assert.assertEquals(adviserNameExpected, advisorname);
 
 		WebElement srcurllocate = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_SRCURL_CSSSELECTOR")));
 
 		String srcurl = srcurllocate.getAttribute("src");
 		System.out.println("srcurl: "+srcurl);
-		Assert.assertEquals(
-				"https://resources.adviserratings.com.au/practices/saige-financial-planning-pty-ltd-18006980.png",
-				srcurl);
+		Assert.assertEquals(srcUrlExpected,srcurl);
 
 	}
 	
@@ -340,31 +342,35 @@ public void addressCheckCall() {
 		}
 	}
 
+
+// Enter Search value
+public void searchValue(String value) throws WebDriverInstanceNullException, InvalidInputException,
+ResourceCustomException, IOException, InterruptedException {
+     log.info("Entered reNameSurvey method of AdviserRatingPage");
+     findTextboxAndSetValueByXpath(adviserRatingPageproperty.getProperty("SEARCH_VALUE_XPATH"),
+    		 value, seleniumWebDriver);
+}
+
 //Iterate the dropdown list  to verify the provided data matches 
-
-	public void findAddressCall() throws InterruptedException, ResourceCustomException, IOException {
-
-		WebElement locationTab = seleniumWebDriver
-				.findElement(By.xpath(adviserRatingPageproperty.getProperty("ADVISER_LOCATIONTAB_XPATH")));
-
-		locationTab.sendKeys("800");
-
-		Thread.sleep(2000);
-		List<WebElement> ele = this.seleniumWebDriver.findElements(By.cssSelector(
-				"div[class='ar-input ar-input--location ar-input--no-label'] div[class='selectize-dropdown single'] div[class='selectize-dropdown-content'] div"));
-		System.out.println(ele.size());
-		for (int i = 0; i <= ele.size() - 1; i++) {
-			if (ele.get(i).getText().contains("Darwin, NT 0800")) {
-				ele.get(i).click();
-				
-				break;
-			}
+public void findAddressCall(String location) throws InterruptedException, ResourceCustomException, IOException {
+	Thread.sleep(2000);
+	List<WebElement> ele = this.seleniumWebDriver.findElements(By.cssSelector(
+			"div[class='ar-input ar-input--location ar-input--no-label'] div[class='selectize-dropdown single'] div[class='selectize-dropdown-content'] div"));
+	System.out.println(ele.size());
+	for (int i = 0; i <= ele.size() - 1; i++) {
+		if (ele.get(i).getText().contains(location)) {
+			ele.get(i).click();
+			break;
 		}
-
 	}
+}
+
+
+
+
 
 	//iterate the KM value to fix 5Km and select the search button
-	public void selectvalueSearchCall() throws ResourceCustomException, IOException {
+	public void selectvalueSearchCall(String distance) throws ResourceCustomException, IOException {
 
 		WebElement distancetab = seleniumWebDriver
 				.findElement(By.id(adviserRatingPageproperty.getProperty("ADVISOR_DISTANCETAB_ID")));
@@ -373,7 +379,7 @@ public void addressCheckCall() {
 		List<WebElement> kmlist = this.seleniumWebDriver
 				.findElements(By.cssSelector("select[id='searchDistance'] option"));
 		for (int i = 0; i <= kmlist.size() - 1; i++) {
-			if (kmlist.get(i).getText().contains("5km")) {
+			if (kmlist.get(i).getText().contains(distance)) {
 				kmlist.get(i).click();
 				// location.sendKeys(Keys.ENTER);
 				break;
@@ -388,10 +394,10 @@ public void addressCheckCall() {
 	}
 
 	//Verify the current url , print search results location and distance values and check the accending order is viewed
-	public void currentPageUrlVerifyCall() throws ResourceCustomException, IOException, InterruptedException {
+	public void currentPageUrlVerifyCall(String url, String ExpectedlocationName,String km, String ExpectedSearchResult) throws ResourceCustomException, IOException, InterruptedException {
 		Thread.sleep(2000);
 		String CUrrentUrl = this.seleniumWebDriver.getCurrentUrl();
-		Assert.assertEquals("https://staging.adviserratings.com.au/find-an-adviser/Darwin-NT-0800", CUrrentUrl);
+		Assert.assertEquals(url, CUrrentUrl);
 		Thread.sleep(2000);
 		WebElement locationFeild = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_LOCATIONFEILD_CSSSELECTOR")));
@@ -399,19 +405,20 @@ public void addressCheckCall() {
 		String locationName = locationFeild.getText();
 		Thread.sleep(2000);
 		System.out.println("locationName:" + locationName);
-		Assert.assertEquals("Darwin, NT 0800", locationName);
+		Assert.assertEquals(ExpectedlocationName, locationName);
 
 		WebElement locationkm = seleniumWebDriver
-				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_LOCATION_KM_CSSSELECTOR")));
+				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_DROPDOWN_DISTANCE_VERIFY")));
 
 		String KMverify = locationkm.getText();
+		Assert.assertEquals(km, KMverify);
 		WebElement locationresult = seleniumWebDriver
 				.findElement(By.tagName(adviserRatingPageproperty.getProperty("ADVISOR_LOCATION_RESULT_TAGNAME")));
 
 		String searchresult = locationresult.getText();
 		System.out.println(searchresult);
 
-		Assert.assertEquals("We've found 27 advisers within 5km of Darwin, NT 0800", searchresult);
+		Assert.assertEquals(ExpectedSearchResult, searchresult);
 
 		WebElement distancetabclick = seleniumWebDriver
 				.findElement(By.cssSelector(adviserRatingPageproperty.getProperty("ADVISOR_DISTANCE_CLICK_CSSSELECTOR")));

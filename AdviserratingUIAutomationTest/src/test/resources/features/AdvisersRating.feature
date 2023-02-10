@@ -4,20 +4,20 @@ Feature: Adviser Rating Search functionality validation
 
   Scenario: Check adviser's profile page displays correct practice and addresses
     Given Navigated to Adviserrating URL
-    And Go to Adviser Tab, enter text and click enter
-    And Get the current Page URL
-    And Check the banner information is correct
-    And Check the name, advisername and location
-    And About tab check
-    And Check the location panel
+    And Go to Adviser Tab, enter "Brett Dillon" and click enter
+    And Get the current Page URL should be equal to "https://staging.adviserratings.com.au/adviser/265081/Brett-Dillon"
+    And Check the banner image equals "https://resources.adviserratings.com.au/adviser-profile/brett-andrew-dillon-265081.png"
+    And Check the name is "Brett Dillon",Advisor name is "Saige Financial Planning Pty Ltd" and location will be "Erina, NSW 2250"
+    And About tab is "About Brett" check
+    And Check the location panel with advisor name "Saige Financial Planning Pty Ltd" and src url "https://resources.adviserratings.com.au/practices/saige-financial-planning-pty-ltd-18006980.png"
     Then Address check is performed
     
   Scenario: Verification of Location and select and enter location feild
     Given Navigated to Adviserrating URL
     And Go to location Tab
-    When clicking on enter from dropdown menu and check Highlight
-    And verify CurrentUrl
-    And verify the dropdown box, listview and KMRange
+    When "Sydney" is entered from dropdown menu, check it contains "NSW 2000" and check it is highlighted
+    And verify it is redirected to the url "https://staging.adviserratings.com.au/find-an-adviser/Sydney-NSW-2000"
+    And verify the dropdown box contains location as "Sydney, NSW 2000", listview and KMRange "10km" in "We've found 2444 advisers within 10km of Sydney, NSW 2000"
     
 
 
@@ -35,8 +35,9 @@ Feature: Adviser Rating Search functionality validation
   Scenario: Search by location and distance
     Given Navigated to Adviserrating URL
     And Go to location Tab
-    And Enter value in location field and find address of particulars
-    And Check the Km value and select and search
-    Then Get CurrentPageUrl and verify
+    When Enter "800" inside the Search box
+    Then Find "Darwin, NT 0800" from the Address search dropdown and click on it
+    And select for "5km" from dropdown and click search
+    Then Get CurrentPageUrl as"https://staging.adviserratings.com.au/find-an-adviser/Darwin-NT-0800", location name "Darwin, NT 0800",  distance "5km" and verify search result as "We've found 27 advisers within 5km of Darwin, NT 0800"
     And check descendingorder of KMRange
     And Logout the browser

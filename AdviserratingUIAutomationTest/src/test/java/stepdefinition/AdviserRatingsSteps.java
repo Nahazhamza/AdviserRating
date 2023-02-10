@@ -181,11 +181,11 @@ public void Go_to_location_Tab() {
 //Step Called - Provide input value and click enter from dropdown and verify it is highlighted 
 
 
-@When("clicking on enter from dropdown menu and check Highlight")
-public void selectLocationFeild() throws InterruptedException, WebDriverInstanceNullException, InvalidInputException, ResourceCustomException, IOException {
+@When("{string} is entered from dropdown menu, check it contains {string} and check it is highlighted")
+public void selectLocationFeild(String Expectedlocation, String containsvalue) throws InterruptedException, WebDriverInstanceNullException, InvalidInputException, ResourceCustomException, IOException {
 	try{
 		Thread.sleep(2000);
-		adviserratingpage.selectLocationfeildcall();
+		adviserratingpage.selectLocationfeildcall(Expectedlocation, containsvalue);
 	}catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
 	}
@@ -194,11 +194,11 @@ public void selectLocationFeild() throws InterruptedException, WebDriverInstance
 
 // Verify the current url value with expected one
 
-@And("verify CurrentUrl")
-public void verify_CurrentUrl() {
+@And("verify it is redirected to the url {string}")
+public void verify_CurrentUrl(String url) {
 	try{
 		Thread.sleep(2000);
-		adviserratingpage.verifySydneycurrentUrl();
+		adviserratingpage.verifySydneycurrentUrl(url);
 	}catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
 	}
@@ -207,11 +207,11 @@ public void verify_CurrentUrl() {
 
 // Verify dropdown box values results , listview is selected and value range should be closest advisers in location Sydney, NSW 2000 are listed in the search results page on page pagination 1
 
-@And("verify the dropdown box, listview and KMRange")
-public void verify_the_dropdown_box()  {
+@And("verify the dropdown box contains location as {string}, listview and KMRange {string} in {string}")
+public void verify_the_dropdown_box(String location, String km,String searchResult)  {
 	try{
 		Thread.sleep(2000);
-		adviserratingpage.verifyTheDropDownBox();
+		adviserratingpage.verifyTheDropDownBox(location,km,searchResult);
 	}catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
 	}
@@ -221,11 +221,11 @@ public void verify_the_dropdown_box()  {
  
 // To visit Adviser Tab and enter the "Brett Dillon" and select from dropdown 
  
-@And ("Go to Adviser Tab, enter text and click enter")
-public void dropdownselect() throws InterruptedException, ResourceCustomException, IOException {
+@And ("Go to Adviser Tab, enter {string} and click enter")
+public void dropdownselect(String adviserName) throws InterruptedException, ResourceCustomException, IOException {
 	try{
 		Thread.sleep(2000);
-		adviserratingpage.dropdownselectAdvisor();
+		adviserratingpage.dropdownselectAdvisor(adviserName);
 	}catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
 	}
@@ -236,11 +236,11 @@ public void dropdownselect() throws InterruptedException, ResourceCustomExceptio
 // Get the current Page URL and verify
 
 
-@And("Get the current Page URL")
-public void currentUrl() {
+@And("Get the current Page URL should be equal to {string}")
+public void currentUrl(String expectedUrl) {
 	try {
 		Thread.sleep(2000);
-	adviserratingpage.advisornameCurrentUrl();
+	adviserratingpage.advisornameCurrentUrl(expectedUrl);
 	}catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
 	}
@@ -250,11 +250,11 @@ public void currentUrl() {
 // Check the banner information is correct
 
 
-@And("Check the banner information is correct")
-public void bannerInfo() throws ResourceCustomException, IOException {
+@And("Check the banner image equals {string}")
+public void bannerInfo(String BannerImage) throws ResourceCustomException, IOException {
 	try {
 		Thread.sleep(2000);
-	adviserratingpage.bannerInfoCall();
+	adviserratingpage.bannerInfoCall(BannerImage);
 	}
 	catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
@@ -265,12 +265,12 @@ public void bannerInfo() throws ResourceCustomException, IOException {
 // Check the name, advisername and location
 
 
-@And("Check the name, advisername and location")
-public void InputCheck() throws ResourceCustomException, IOException 
+@And("Check the name is {string},Advisor name is {string} and location will be {string}")
+public void InputCheck(String name, String AdvisorName, String Location) throws ResourceCustomException, IOException 
 {
 	try {
 		Thread.sleep(2000);
-	adviserratingpage.inputCheckCall();
+	adviserratingpage.inputCheckCall(name, AdvisorName,Location);
 	}catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
 	}
@@ -279,12 +279,12 @@ public void InputCheck() throws ResourceCustomException, IOException
 
 // verify Tab Info 
 
-@And("About tab check")
-public void aboutTab() throws ResourceCustomException, IOException {
+@And("About tab is {string} check")
+public void aboutTab(String AboutName) throws ResourceCustomException, IOException {
 	
 	try {
 		Thread.sleep(2000);
-	adviserratingpage.aboutTabCheckCall();
+	adviserratingpage.aboutTabCheckCall(AboutName);
 	}
 	catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
@@ -294,11 +294,11 @@ public void aboutTab() throws ResourceCustomException, IOException {
  
 // Invoke Method locationPanelCall to locate map and check the image
 
-@And("Check the location panel")
-public void locationPanel() throws ResourceCustomException, IOException  {
+@And("Check the location panel with advisor name {string} and src url {string}")
+public void locationPanel(String adviserName, String srcUrl) throws ResourceCustomException, IOException  {
 	try{
 		Thread.sleep(2000);
-		adviserratingpage.locationPanelCall();
+		adviserratingpage.locationPanelCall(adviserName,srcUrl);
 		}catch (Exception ex) {
 			new ExceptionHandeler().genricExceptionHandeler(ex);
 		}
@@ -318,41 +318,52 @@ public void addressCheck() {
 	
 }
 
-//Enter the value in location tab of dropdown window 
-
-@And("Enter value in location field and find address of particulars")
-public void findAddress() throws InterruptedException {
-
+@When("Enter {string} inside the Search box")
+public void enter_inside_the_search_box(String value) {
+log.info("Step: Enter the value" + value + "on Search box");
 	try {
 		Thread.sleep(2000);
-		adviserratingpage.findAddressCall();
-		
+		adviserratingpage.searchValue(value);
+	} 
+	catch (Exception ex) {
+		new ExceptionHandeler().genricExceptionHandeler(ex);
+	}
+}
+
+@Then("Find {string} from the Address search dropdown and click on it")
+public void Address_dropdown_should_be_displayed_with(String location) {
+	try {
+	Thread.sleep(2000);
+	adviserratingpage.findAddressCall(location);
+//adviserratingpage.verifyadviserNameonDropDown(location);
+	} 
+	catch (Exception ex)
+	{
+	new ExceptionHandeler().genricExceptionHandeler(ex);
+	}
+}
+
+
+
+@And("select for {string} from dropdown and click search")
+public void selectvalueSearch(String distance) {
+	
+	
+	try {
+		Thread.sleep(2000);
+		adviserratingpage.selectvalueSearchCall(distance);
 	}catch (Exception ex) {
 		new ExceptionHandeler().genricExceptionHandeler(ex);
 	}
-
-
-}
-
-@And("Check the Km value and select and search")
-public void selectvalueSearch() {
-	
-	
-	try {
-		Thread.sleep(2000);
-		adviserratingpage.selectvalueSearchCall();
-	}catch (Exception ex) {
-		new ExceptionHandeler().genricExceptionHandeler(ex);
-	}
 	
 	
 }
 
-@Then("Get CurrentPageUrl and verify")
-public void currentPageurlVerify() throws InterruptedException, ResourceCustomException, IOException {
+@Then("Get CurrentPageUrl as{string}, location name {string},  distance {string} and verify search result as {string}")
+public void currentPageurlVerify(String url, String locationName,String km, String SearchResult) throws InterruptedException, ResourceCustomException, IOException {
 	
 		Thread.sleep(2000);
-		adviserratingpage.currentPageUrlVerifyCall();
+		adviserratingpage.currentPageUrlVerifyCall(url,locationName,km,SearchResult);
 	
 	
 	

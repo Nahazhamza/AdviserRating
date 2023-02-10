@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Test Report</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Feb 10, 2023 02:13:53 pm</span></a>
+<a href="#"><span class="badge badge-primary">Feb 10, 2023 05:39:39 pm</span></a>
 </li>
 </ul>
 </div>
@@ -92,7 +92,7 @@
           <div class="test-detail">
             <p class="name">Adviser Rating Search functionality validation</p>
             <p class="text-sm">
-              <span>2:13:54 pm</span> / <span>00:01:35:098</span>
+              <span>5:39:40 pm</span> / <span>00:01:35:421</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -101,9 +101,9 @@
 <div class="p-v-10">
 <div class="info">
 <h5 class="test-status text-pass">Adviser Rating Search functionality validation</h5>
-<span class='badge badge-success'>02.10.2023 2:13:54 pm</span>
-<span class='badge badge-danger'>02.10.2023 2:15:29 pm</span>
-<span class='badge badge-default'>00:01:35:098</span>
+<span class='badge badge-success'>02.10.2023 5:39:40 pm</span>
+<span class='badge badge-danger'>02.10.2023 5:41:15 pm</span>
+<span class='badge badge-default'>00:01:35:421</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
 <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
@@ -125,33 +125,33 @@
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.dropdownselect()">
-                <span>And Go to Adviser Tab, enter text and click enter</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.dropdownselect(java.lang.String)">
+                <span>And Go to Adviser Tab, enter "Brett Dillon" and click enter</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.currentUrl()">
-                <span>And Get the current Page URL</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.currentUrl(java.lang.String)">
+                <span>And Get the current Page URL should be equal to "https://staging.adviserratings.com.au/adviser/265081/Brett-Dillon"</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.bannerInfo()">
-                <span>And Check the banner information is correct</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.bannerInfo(java.lang.String)">
+                <span>And Check the banner image equals "https://resources.adviserratings.com.au/adviser-profile/brett-andrew-dillon-265081.png"</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.InputCheck()">
-                <span>And Check the name, advisername and location</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.InputCheck(java.lang.String,java.lang.String,java.lang.String)">
+                <span>And Check the name is "Brett Dillon",Advisor name is "Saige Financial Planning Pty Ltd" and location will be "Erina, NSW 2250"</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.aboutTab()">
-                <span>And About tab check</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.aboutTab(java.lang.String)">
+                <span>And About tab is "About Brett" check</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.locationPanel()">
-                <span>And Check the location panel</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.locationPanel(java.lang.String,java.lang.String)">
+                <span>And Check the location panel with advisor name "Saige Financial Planning Pty Ltd" and src url "https://resources.adviserratings.com.au/practices/saige-financial-planning-pty-ltd-18006980.png"</span>
       <div>
       </div>
               </div>
@@ -181,18 +181,18 @@
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.selectLocationFeild()">
-                <span>When clicking on enter from dropdown menu and check Highlight</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.selectLocationFeild(java.lang.String,java.lang.String)">
+                <span>When "Sydney" is entered from dropdown menu, check it contains "NSW 2000" and check it is highlighted</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.verify_CurrentUrl()">
-                <span>And verify CurrentUrl</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.verify_CurrentUrl(java.lang.String)">
+                <span>And verify it is redirected to the url "https://staging.adviserratings.com.au/find-an-adviser/Sydney-NSW-2000"</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.verify_the_dropdown_box()">
-                <span>And verify the dropdown box, listview and KMRange</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.verify_the_dropdown_box(java.lang.String,java.lang.String,java.lang.String)">
+                <span>And verify the dropdown box contains location as "Sydney, NSW 2000", listview and KMRange "10km" in "We've found 2444 advisers within 10km of Sydney, NSW 2000"</span>
       <div>
       </div>
               </div>
@@ -273,18 +273,23 @@
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.findAddress()">
-                <span>And Enter value in location field and find address of particulars</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.enter_inside_the_search_box(java.lang.String)">
+                <span>When Enter "800" inside the Search box</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.selectvalueSearch()">
-                <span>And Check the Km value and select and search</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.Address_dropdown_should_be_displayed_with(java.lang.String)">
+                <span>Then Find "Darwin, NT 0800" from the Address search dropdown and click on it</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.currentPageurlVerify()">
-                <span>Then Get CurrentPageUrl and verify</span>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.selectvalueSearch(java.lang.String)">
+                <span>And select for "5km" from dropdown and click search</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="stepdefinition.AdviserRatingsSteps.currentPageurlVerify(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
+                <span>Then Get CurrentPageUrl as"https://staging.adviserratings.com.au/find-an-adviser/Darwin-NT-0800", location name "Darwin, NT 0800",  distance "5km" and verify search result as "We've found 27 advisers within 5km of Darwin, NT 0800"</span>
       <div>
       </div>
               </div>
@@ -345,7 +350,7 @@
 <tbody>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>14:13:54 pm</td>
+<td>17:39:40 pm</td>
 <td>
 <a href="#" class="linked" test-id='1' id='2'>Check adviser's profile page displays correct practice and addresses</a>
 <div class="">
@@ -355,7 +360,7 @@
 </tr>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>14:14:24 pm</td>
+<td>17:40:05 pm</td>
 <td>
 <a href="#" class="linked" test-id='1' id='13'>Verification of Location and select and enter location feild</a>
 <div class="">
@@ -365,7 +370,7 @@
 </tr>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>14:14:42 pm</td>
+<td>17:40:23 pm</td>
 <td>
 <a href="#" class="linked" test-id='1' id='21'>Search by adviser name and check search drop down box displays correct practice and addresses</a>
 <div class="">
@@ -375,7 +380,7 @@
 </tr>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>14:14:58 pm</td>
+<td>17:40:40 pm</td>
 <td>
 <a href="#" class="linked" test-id='1' id='33'>Search by location and distance</a>
 <div class="">
@@ -400,13 +405,13 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Feb 10, 2023 02:13:53 pm</h3>
+<h3>Feb 10, 2023 05:39:39 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Feb 10, 2023 02:15:29 pm</h3>
+<h3>Feb 10, 2023 05:41:15 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -477,7 +482,7 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>29</b> steps passed</small></div>
+<div><small data-tooltip='100%'><b>30</b> steps passed</small></div>
 <div>
 <small data-tooltip='0%'><b>0</b> steps failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
@@ -496,7 +501,7 @@
 </div></div>
 <script>
 var timeline = {
-"Adviser Rating Search functionality validation":95.098
+"Adviser Rating Search functionality validation":95.421
 };
 </script>
 <div class="row">
@@ -533,7 +538,7 @@ warningChild: 0,
 skipChild: 0,
 infoChild: 0,
 grandChildCount: 5,
-passGrandChild: 29,
+passGrandChild: 30,
 failGrandChild: 0,
 warningGrandChild: 0,
 skipGrandChild: 0,
