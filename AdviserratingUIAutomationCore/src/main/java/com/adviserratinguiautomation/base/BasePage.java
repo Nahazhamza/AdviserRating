@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static com.adviserratinguiautomation.driver.SFWebdriverFactory.getSFWebDriverInstance;
+import static com.adviserratinguiautomation.driver.ADRWebdriverFactory.getADRWebDriverInstance;
 
 /**
  * This is the base class for all pages that responsible to handle the WebDriver
@@ -33,7 +33,7 @@ public abstract class BasePage extends BaseTestFixture {
 	public void createSFDriverInstanceIfNull() {
 		log.info("Entered the createSFDriverInstanceIfNull method in BasePage");
 		if (seleniumWebDriver == null) {
-			seleniumWebDriver = getSFWebDriverInstance();
+			seleniumWebDriver = getADRWebDriverInstance();
 		}
 		log.info("Exited the createSFDriverInstanceIfNull method in BasePage");
 	}

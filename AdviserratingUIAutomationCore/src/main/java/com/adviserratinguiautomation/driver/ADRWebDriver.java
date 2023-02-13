@@ -15,32 +15,32 @@ import java.util.List;
 /**
  * This is the base class for the selenium framework web driver
  */
-public class SFWebDriver {
+public class ADRWebDriver {
 
-	final static Logger log = Logger.getLogger(SFWebDriver.class);
+	final static Logger log = Logger.getLogger(ADRWebDriver.class);
 
 	private WebDriver seleniumWebDriver = null;
-	private static SFWebDriver sfWebDriver = null;
+	private static ADRWebDriver sfWebDriver = null;
 
-	SFWebdriverFactory sfWebdriverFactory = new SFWebdriverFactory();
+	ADRWebdriverFactory sfWebdriverFactory = new ADRWebdriverFactory();
 
 	private String browser;
 
 	/**
 	 * Creates an instance of the web driver
 	 */
-	protected SFWebDriver() {
+	protected ADRWebDriver() {
 		log.info("Entered the SFWebDriver method");
 		cleanUp();
 		sfWebdriverFactory.init();
 		browser = sfWebdriverFactory.getBrowser();
-		seleniumWebDriver = sfWebdriverFactory.getSFWebDriverInstance();
+		seleniumWebDriver = sfWebdriverFactory.getADRWebDriverInstance();
 		if (seleniumWebDriver != null) {
 			seleniumWebDriver.manage().window().maximize();
 		}
 		log.info("Exited the SFWebDriver method");
 	}
-	protected SFWebDriver(String browser) {
+	protected ADRWebDriver(String browser) {
 		log.info("Entered the SFWebDriver method with browser name");
 		sfWebdriverFactory.init();
 		seleniumWebDriver = sfWebdriverFactory.getBrowserInstance(browser);
@@ -58,10 +58,10 @@ public class SFWebDriver {
 	/**
 	 * @return To get the instance of the Framework web driver
 	 */
-	public static SFWebDriver getSFWebDriverInstance() {
+	public static ADRWebDriver getADRWebDriverInstance() {
 		log.info("Entered the getSFWebDriverInstance method");
 		if (sfWebDriver == null) {
-			sfWebDriver = new SFWebDriver();
+			sfWebDriver = new ADRWebDriver();
 		}
 		log.info("Exited the getSFWebDriverInstance method");
 		return sfWebDriver;
@@ -74,7 +74,7 @@ public class SFWebDriver {
 	public WebDriver getSeleniumWebDriver() {
 		log.info("Entered the getSeleniumWebDriver method");
 		if (sfWebDriver == null) {
-			sfWebDriver = new SFWebDriver();
+			sfWebDriver = new ADRWebDriver();
 		}
 		log.info("Exited the getSeleniumWebDriver method");
 		return seleniumWebDriver;
@@ -85,7 +85,7 @@ public class SFWebDriver {
 	 */
 	public void resetSFWebDriver() {
 		log.info("Entered the resetSFWebDriver method");
-		sfWebDriver = new SFWebDriver();
+		sfWebDriver = new ADRWebDriver();
 		log.info("Exited the resetSFWebDriver method");
 	}
 
@@ -94,7 +94,7 @@ public class SFWebDriver {
 	 */
 	public void resetNewBrowser(String browser) {
 		log.info("Entered the resetNewBrowser method");
-		sfWebDriver = new SFWebDriver(browser);
+		sfWebDriver = new ADRWebDriver(browser);
 		log.info("Exited the resetNewBrowser method");
 	}
 

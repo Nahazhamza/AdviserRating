@@ -1,7 +1,7 @@
 package com.adviserratinguiautomation.base;
 
 import com.adviserratinguiautomation.customexceptions.ResourceCustomException;
-import com.adviserratinguiautomation.driver.SFWebDriver;
+import com.adviserratinguiautomation.driver.ADRWebDriver;
 import com.adviserratinguiautomation.logger.FrameworkLogger;
 import com.adviserratinguiautomation.resourceRead.ResourceRead;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class BaseTestScripts extends FrameworkLogger {
 
-	private WebDriver _seleniumWebDriver = SFWebDriver.getSFWebDriverInstance().getSeleniumWebDriver();
+	private WebDriver _seleniumWebDriver = ADRWebDriver.getADRWebDriverInstance().getSeleniumWebDriver();
 
 	public static String scenarioName = "";
 

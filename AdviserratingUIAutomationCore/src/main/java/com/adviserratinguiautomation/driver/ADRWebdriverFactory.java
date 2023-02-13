@@ -19,9 +19,9 @@ import static java.lang.Integer.parseInt;
 /**
  * This Factory class is used to get the instance of the web driver
  */
-public class SFWebdriverFactory {
+public class ADRWebdriverFactory {
 
-    final static Logger log = Logger.getLogger(SFWebdriverFactory.class);
+    final static Logger log = Logger.getLogger(ADRWebdriverFactory.class);
     private static String APP_SETTINGS_BROWSER = "Browser";
     private static String APP_SETTING_TEST_ENVIROMENT = "TestEnvironment";
    public static String browserValue;
@@ -38,7 +38,7 @@ public class SFWebdriverFactory {
     /**
      * @return Get the instance of the webbrowser on based on the test browser
      */
-    public static WebDriver getSFWebDriverInstance() 
+    public static WebDriver getADRWebDriverInstance() 
     {
         log.info("Entered the getSFWebDriverInstance method in SFWebdriverFactory");
         WebDriver seleniumWebDriver = null;
