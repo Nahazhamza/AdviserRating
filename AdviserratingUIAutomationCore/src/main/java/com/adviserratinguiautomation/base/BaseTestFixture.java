@@ -28,7 +28,7 @@ import java.util.function.Function;
 public abstract class BaseTestFixture extends BaseTestScripts {
 
 	// Logger
-	// static { System.setProperty("log4jOutputFile", "../sfTest/testResult/" +
+	// static { System.setProperty("log4jOutputFile", "../AdviserratingUIAutomationTest/testResult/" +
 	// logProjectName + "/log/seleniumFrameworkLog.log"); }
 	final static Logger log = Logger.getLogger(BaseTestFixture.class);
 
